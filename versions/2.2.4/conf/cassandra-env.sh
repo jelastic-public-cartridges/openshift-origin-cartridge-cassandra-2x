@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+. /etc/jelastic/environment
+
 calculate_heap_sizes()
 {
     case "`uname`" in
@@ -70,18 +72,18 @@ calculate_heap_sizes()
     else
         max_heap_size_in_mb="$quarter_system_memory_in_mb"
     fi
-    MAX_HEAP_SIZE=494m
-    MIN_HEAP_SIZE=494m
-    max_sensible_yg_per_core_in_mb="100"		
-    max_sensible_yg_in_mb=`expr $max_sensible_yg_per_core_in_mb "*" $system_cpu_cores`		
- 		
-    desired_yg_in_mb=`expr $max_heap_size_in_mb / 4`		
- 		
-    if [ "$desired_yg_in_mb" -gt "$max_sensible_yg_in_mb" ]		
-    then		
-        HEAP_NEWSIZE="${max_sensible_yg_in_mb}M"		
-    else		
-        HEAP_NEWSIZE="${desired_yg_in_mb}M"		
+    MAX_HEAP_SIZE=494M
+    MIN_HEAP_SIZE=494M
+    max_sensible_yg_per_core_in_mb="100"
+    max_sensible_yg_in_mb=`expr $max_sensible_yg_per_core_in_mb "*" $system_cpu_cores`
+ 
+    desired_yg_in_mb=`expr $max_heap_size_in_mb / 4`
+ 
+    if [ "$desired_yg_in_mb" -gt "$max_sensible_yg_in_mb" ]
+    then
+        HEAP_NEWSIZE="${max_sensible_yg_in_mb}M"
+    else
+        HEAP_NEWSIZE="${desired_yg_in_mb}M"
     fi
 }
 
@@ -139,7 +141,7 @@ esac
 # times. If in doubt, and if you do not particularly want to tweak, go with
 # 100 MB per physical CPU core.
 
-#MAX_HEAP_SIZE=700m
+#MAX_HEAP_SIZE=494M
 #HEAP_NEWSIZE=40m
 
 # Set this to control the amount of arenas per-thread in glibc
@@ -171,6 +173,10 @@ JMX_PORT="7199"
 
 # enable assertions.  disabling this in production will give a modest
 # performance benefit (around 5%).
+. /opt/repo/versions/${Version}/bin/variablesparser.sh
+
+JVM_OPTS="${JVM_OPTS} ${XMS} ${XMX}"
+
 JVM_OPTS="$JVM_OPTS -ea"
 
 # add the jamm javaagent
