@@ -72,8 +72,6 @@ calculate_heap_sizes()
     else
         max_heap_size_in_mb="$quarter_system_memory_in_mb"
     fi
-    MAX_HEAP_SIZE=494M
-    MIN_HEAP_SIZE=494M
     max_sensible_yg_per_core_in_mb="100"
     max_sensible_yg_in_mb=`expr $max_sensible_yg_per_core_in_mb "*" $system_cpu_cores`
  
