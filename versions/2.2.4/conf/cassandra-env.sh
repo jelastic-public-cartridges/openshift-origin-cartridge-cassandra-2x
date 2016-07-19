@@ -173,7 +173,7 @@ JMX_PORT="7199"
 # performance benefit (around 5%).
 . /opt/repo/versions/${Version}/bin/variablesparser.sh
 
-JVM_OPTS="${JVM_OPTS} ${XMS} ${XMX}"
+JVM_OPTS="${JVM_OPTS} ${XMS} ${XMX} ${XMINF} ${XMAXF} ${XMN}"
 
 JVM_OPTS="$JVM_OPTS -ea"
 
