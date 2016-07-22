@@ -171,9 +171,12 @@ JMX_PORT="7199"
 
 # enable assertions.  disabling this in production will give a modest
 # performance benefit (around 5%).
+
+JAVA_OPTS=""
+
 . /opt/repo/versions/${Version}/bin/variablesparser.sh
 
-JVM_OPTS="${JVM_OPTS} ${XMS} ${XMX} ${XMINF} ${XMAXF} ${XMN}"
+JVM_OPTS="${JVM_OPTS} ${JAVA_OPTS}"
 
 JVM_OPTS="$JVM_OPTS -ea"
 
@@ -213,8 +216,8 @@ JVM_OPTS="$JVM_OPTS -Xss256k"
 JVM_OPTS="$JVM_OPTS -XX:StringTableSize=1000003"
 
 # GC tuning options
-JVM_OPTS="$JVM_OPTS -XX:+UseParNewGC" 
-JVM_OPTS="$JVM_OPTS -XX:+UseConcMarkSweepGC" 
+#JVM_OPTS="$JVM_OPTS -XX:+UseParNewGC" 
+#JVM_OPTS="$JVM_OPTS -XX:+UseConcMarkSweepGC" 
 JVM_OPTS="$JVM_OPTS -XX:+CMSParallelRemarkEnabled" 
 JVM_OPTS="$JVM_OPTS -XX:SurvivorRatio=8" 
 JVM_OPTS="$JVM_OPTS -XX:MaxTenuringThreshold=1"
